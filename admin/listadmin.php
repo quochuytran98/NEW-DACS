@@ -1,4 +1,5 @@
 <?php
+ob_start();
 include('includes/header.php'); 
 include('includes/navbar.php'); 
 
@@ -24,7 +25,13 @@ include('includes/navbar.php');
   }
 
  ?>
+<?php 
+  $check= session::get('level');
+  if($check == '1'){
+    header('Location:index.php');
+  }
 
+ ?>
 <div class="modal fade" id="addadminprofile" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
@@ -170,4 +177,6 @@ include('includes/navbar.php');
 <?php
 include('includes/scripts.php');
 include('includes/footer.php');
+ob_end_flush();
+
 ?>

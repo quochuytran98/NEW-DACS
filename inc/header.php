@@ -1,8 +1,7 @@
 <?php
     include 'lib/session.php';
     session::init();
-?>
-<?php  
+
     include_once ("lib/database.php");
     include_once ("helpers/format.php");
     Spl_autoload_register(function ($className){ 
@@ -12,17 +11,25 @@
     $fm=new format();
     $ct=new cart();
     $cat=new category();
-    $us=new user();
     $pro=new product();
     $city=new city();
     $user=new user();
-    $bill=new bill();
-    
+    $bill=new bill();  
+    $brand = new brand();
+?>
+<?php 
+$buyer= Session::get('customer_user');
  ?>
 <!DOCTYPE html>
-<html lang="zxx">
-
 <head>
+     <?php  
+
+                if(isset($_GET['customer_user'])){
+                    $destroyCart = $ct->Del_cart_by_Session();
+                    Session::destroy();
+                }
+
+            ?>
     <meta charset="UTF-8">
     <meta name="description" content="Ogani Template">
     <meta name="keywords" content="Ogani, unica, creative, html">
@@ -59,7 +66,11 @@
         <div class="humberger__menu__cart">
             <ul>
                 <li><a href="#"><i class="fa fa-heart"></i> <span>1</span></a></li>
-                <li><a href="#"><i class="fa fa-shopping-bag"></i> <span>3</span></a></li>
+                <li><a href="#"><i class="fa fa-shopping-bag"></i> <span><?php  
+                                        $qtt = '0';
+                                        $qtt=Session::get("qtt");
+                                        echo $qtt ;
+                                    ?></span></a></li>
             </ul>
             <div class="header__cart__price">item: <span>$150.00</span></div>
         </div>
@@ -80,11 +91,11 @@
         <nav class="humberger__menu__nav mobile-menu">
             <ul>
                 <li class="active"><a href="./index.php">Home</a></li>
-                <li><a href="./shop-grid.php">Shop</a></li>
+                <li><a href="./product.php">Shop</a></li>
                 <li><a href="#">Pages</a>
                     <ul class="header__menu__dropdown">
-                        <li><a href="./shop-details.php">Shop Details</a></li>
-                        <li><a href="./shoping-cart.php">Shoping Cart</a></li>
+                        <li><a href="./details.php">Shop Details</a></li>
+                        <li><a href="./cart.php">Shoping Cart</a></li>
                         <li><a href="./checkout.php">Check Out</a></li>
                         <li><a href="./blog-details.php">Blog Details</a></li>
                     </ul>
@@ -139,8 +150,22 @@
                                     <li><a href="#">English</a></li>
                                 </ul>
                             </div>
+                            <div class="header__top__right__language">
+                                <p>Hello, <?php echo " ". $buyer; ?> </p>
+                            </div>
+
                             <div class="header__top__right__auth">
-                                <a href="login.php"><i class="fa fa-user"></i> Login</a>
+                                <?php 
+                                      $check = Session::get('customer_login');
+                                      if($check== false){
+                                          echo '<a href="login.php"><i class="fa fa-user"></i> Login</a>';
+                                        }else
+                                       {
+
+                                           echo '<a href="?customer_user='.Session::get('customer_user').'"><i class="fa fa-user"></i>Logout</a></div>'; 
+                                          }
+                                   ?>
+                               <!--  <a href="login.php"><i class="fa fa-user"></i> Login</a> -->
                             </div>
                         </div>
                     </div>
@@ -158,11 +183,11 @@
                     <nav class="header__menu">
                         <ul>
                             <li class="active"><a href="./index.php">Home</a></li>
-                            <li><a href="./shop-grid.php">Shop</a></li>
+                            <li><a href="./product.php">Shop</a></li>
                             <li><a href="#">Pages</a>
                                 <ul class="header__menu__dropdown">
-                                    <li><a href="./shop-details.php">Shop Details</a></li>
-                                    <li><a href="./shoping-cart.php">Shoping Cart</a></li>
+                                    <li><a href="./details.php">Shop Details</a></li>
+                                    <li><a href="./cart.php">Shoping Cart</a></li>
                                     <li><a href="./checkout.php">Check Out</a></li>
                                     <li><a href="./blog-details.php">Blog Details</a></li>
                                 </ul>
@@ -176,9 +201,17 @@
                     <div class="header__cart">
                         <ul>
                             <li><a href="#"><i class="fa fa-heart"></i> <span>1</span></a></li>
-                            <li><a href="#"><i class="fa fa-shopping-bag"></i> <span>3</span></a></li>
+                            <li><a href="cart.php"><i class="fa fa-shopping-bag"></i> <span><?php  
+                                        $qtt = '0';
+                                        $qtt=Session::get("qtt");
+                                        echo $qtt;
+                                    ?></span></a></li>
                         </ul>
-                        <div class="header__cart__price">item: <span>$150.00</span></div>
+                        <div class="header__cart__price">item: <span><?php  
+                                        $qtt = '0';
+                                        $qtt=Session::get("total");
+                                        echo $qtt ;
+                                    ?></span></a></li></span></div>
                     </div>
                 </div>
             </div>

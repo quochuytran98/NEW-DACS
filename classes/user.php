@@ -72,7 +72,7 @@
 		public function Login_Customer($data){
 			$username = mysqli_real_escape_string($this->db->link, $data['username']);
 			$password = mysqli_real_escape_string($this->db->link, md5($data['password']));	
-				$check = "SELECT * FROM tbl_customer WHERE username= '$username' OR emailCus= '$username' OR phone= '$username'  AND password='$password'";
+				$check = "SELECT * FROM tbl_customer WHERE  password ='$password' AND username= '$username' OR emailCus= '$username' OR phone= '$username'";
 				$result_check = $this->db->select($check);
 				if($result_check){
 					$value = $result_check-> fetch_assoc();

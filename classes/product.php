@@ -180,7 +180,7 @@
 		}
 
 		public function get_1Product($name){
-			$query = "SELECT A.productId, A.productName, C.brandName,B.catName,A.price,A.image,A.type,A.size,A.description
+			$query = "SELECT A.productName, C.brandName,B.catName,A.price,A.image,A.type,A.size,A.description
 					  FROM tbl_product A, tbl_category B, tbl_brand C
 					  WHERE A.catId = B.catId AND A.brandId = C.brandId AND A.productName = '$name'
 					  GROUP by A.productName";
@@ -194,6 +194,11 @@
 		}
 		public function Show_ProductByCat($catName){
 			$query = "SELECT * FROM tbl_product A, tbl_category B, tbl_brand C WHERE A.catId=B.catId AND A.brandId=C.brandId AND B.catName ='$catName' GROUP BY A.productName ORDER BY A.productName DESC";
+			$result = $this->db->select($query);
+			return $result;
+		}
+		public function sort_Pirce(){
+			$query = "SELECT A.productName,A.image, C.brandName,B.catName,A.price,A.type,A.description FROM tbl_product A, tbl_category B, tbl_brand C WHERE A.catId=B.catId AND A.brandId=C.brandId GROUP BY A.productName, A.description  ORDER BY A.price DESC";
 			$result = $this->db->select($query);
 			return $result;
 		}

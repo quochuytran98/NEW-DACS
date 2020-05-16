@@ -1,4 +1,4 @@
-<?php
+<?php 
     include '../lib/session.php';
     
     session::checkSession();
@@ -43,6 +43,7 @@
       <h6 class="collapse-header">Custom Components:</h6>
       <a class="collapse-item" href="buttons.html">Buttons</a>
       <a class="collapse-item" href="brand.php">Brand</a>
+      <a class="collapse-item" href="discount.php">Discount</a>
       <a class="collapse-item" href="category.php">Category</a>
       <a class="collapse-item" href="product.php">Products</a>
     </div>

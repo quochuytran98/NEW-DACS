@@ -40,6 +40,7 @@ include('includes/navbar.php');
 
                 <label> Brand name </label>
                 <input type="text" name="brandName" class="form-control" placeholder="Enter Brand">
+                
             </div>
             
         

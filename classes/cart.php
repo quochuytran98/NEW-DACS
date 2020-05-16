@@ -163,6 +163,57 @@
 			$get = $this->db->select($query);
 			return $get;
 		}
+		public function get_Discount($code){
+			
+			$query = "SELECT * FROM tbl_discount WHERE code = '$code'";
+			$result = $this->db->select($query);
+			if($result){
+				return $result;
+			}
+		} 
+
+		public function show_Discount(){
+			
+			$query = "SELECT * FROM tbl_discount ";
+			$result = $this->db->select($query);
+			if($result){
+				return $result;
+			}
+		}
+		public function insert_Discount($code,$discount){
+
+			$code = $this->fm->validation($code);
+			$code = mysqli_real_escape_string($this->db->link, $code);
+
+			$discount = $this->fm->validation($discount);
+			$discount = mysqli_real_escape_string($this->db->link, $discount);
+			if(empty($code) || empty($discount)){
+				$alert = "Vui lòng điền thông tin ";
+				return $alert;
+			}else{
+				$query = "INSERT INTO tbl_discount(code, discount) VALUES ('$code', '$discount')";
+				$result = $this->db->insert($query);
+				if($result){
+					// $alert = "Thêm brand thành công";
+					// return $alert;
+					header('Location:discount.php');
+
+				}
+				else{
+					$alert = "Lỗi. Thêm discount thất bại";
+					return $alert;	
+				}
+
+			}
+			
+		}
+
+		public function delete_Discount($id){
+			$query = "DELETE FROM tbl_discount WHERE id_discount = '$id' ";
+			$result = $this->db->delete($query);
+			$alert = "<span>Xóa thàh công</span";
+			return $alert;
+		}
 
 	}
  ?>

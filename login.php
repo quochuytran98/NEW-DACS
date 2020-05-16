@@ -1,12 +1,16 @@
 <?php
+ob_start();
  include 'inc/header.php';
+ 
+
 
 ?>
 
 <?php 
+       
         $check = Session::get('customer_login');
         if($check){
-         header('Location:index.php');
+        header('Location:index.php');
         }
 ?>
 <?php 
@@ -79,27 +83,24 @@ span.psw {
 }
 </style>
 
-
-
 <body>
-
-
-
-<form action="login.php" method="post">
+<form action="" method="post">
   <center><h2>Login</h2></center>
 
   <div class="container">
     <label for="uname"><b>Username</b></label>
-    <input type="text" placeholder="Enter Username" name="username" required>
+    <input type="text" placeholder="Enter Username" name="username" >
 
     <label for="psw"><b>Password</b></label>
-    <input type="password" placeholder="Enter Password" name="password" required>
+    <input type="password" placeholder="Enter Password" name="password" >
      <?php  
           if(isset($loginCus)){
                         echo $loginCus;
                     }
         ?>   
+       <!--  <div class="buttons"><div><input type="submit" name="login" class="grey" value="Đăng nhập"></div></div> -->
         <button type="submit" name="login">Login</button>
+        <button onclick="location.href='index.php'" type="button" name="">Trang chủ</button>
     <label>
       <input type="checkbox" checked="checked" name="remember"> Remember me
     </label>
@@ -116,4 +117,5 @@ span.psw {
 <?php 
 
  include 'inc/footer.php';
+ ob_end_flush();
  ?>
